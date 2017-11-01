@@ -13,12 +13,9 @@ $( document ).ready(function() {
   //check browser width, set #links visibility property to false when less than {x} pixels
   console.log($(window).width())
 
-
-
-
 });
 
-var hmd = true
+var hmd = true;
 
 console.log($("#links").classList);
 $( window ).resize(function() {
@@ -29,6 +26,18 @@ $( window ).resize(function() {
 
   }
 });
+
+/*
+var menu_mobile = {
+  visible: true,
+}
+
+function modifyMenuMobile(menu) {
+  console.log(menu.visible);
+}
+
+animateUp(menu_mobile);
+*/
 
 var menuDown = true;
 console.log(menuDown);

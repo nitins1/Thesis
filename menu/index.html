@@ -4,30 +4,124 @@
     <meta charset="utf-8">
     <title>menu</title>
     <meta name="description" content="menu">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+    <script src="aframe-voice-command-component.js"></script>
   </head>
   <body>
+    <script>
+    $( document ).ready(function() {
+      $("#menu-button").click(function() {
+        if (menuDown == true) {
+          document.querySelector("#menu-container").className += " visible";
+          menuDown = false;
+        } else {
+          $(document.querySelector("#menu-container")).removeClass("visible");
+          menuDown = true;
+        }
+      });
+    });
+
+    var menuDown = true;
+    console.log(menuDown);
+    var sphere = document.querySelector("#sphere");
+    function outerfunction() {
+      //console.log('outerfunction');
+      console.log(menuDown);
+      var sphere = document.querySelector("#sphere");
+      if (menuDown) {
+        document.querySelector("#menu-container").className += " visible"; //Change to VR menu
+        sphere.emit('fade'); //Change to VR menu
+        menuDown = false;
+      }
+    }
+    function hideMenu() {
+      var sphere = document.querySelector("#sphere");
+      if (!menuDown) {
+        $(document.querySelector("#menu-container")).removeClass("visible");
+        sphere.emit('hide');
+        menuDown = true;
+      }
+    }
+    AFRAME.registerComponent('trigger-on-look-behind', {
+      schema: {type: 'string'},
+      init: function () {
+        console.log("printing this: " + this.data);
+        var eventName = this.data;
+        this.el.addEventListener('componentchanged', function (evt) {
+          //console.log(evt.detail.newData.x);
+          if (evt.detail.name !== 'rotation') { return; }
+          if (evt.detail.newData.x < -20) {
+            //this.emit(eventName);
+            //console.log("eventName: " + eventName);
+            outerfunction();
+          } else {
+            hideMenu();
+          }
+          /*
+          while (evt.detail.newData.x > -20) {
+            outerfunction();
+          } */
+        });
+      }
+    });
+    </script>
+
+    <div class="" id="menu-button"><h3> Show Menu </h3></div>
+
+    <div class="" id="menu-container">
+
+      <h1>Menu</h1>
+
+      <ul class="grid-container" id="testDiv">
+
+          <li><p>Menu</p></li>
+          <li><p>Menu</p></li>
+          <li><p>Menu</p></li>
+          <li><p>Menu</p></li>
+
+      </ul>
+
+    </div>
+
+
+
+
     <a-scene>
       <a-assets>
         <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" crossorigin="anonymous">
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" crossorigin="anonymous">
+        <img id="my-image" src="image.png">
       </a-assets>
 
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" src="#my-image"></a-plane>
+
+      <a-entity id="annyang" annyang-voice-recognition></a-entity>
+
+      <a-camera aid="camera" trigger-on-look-behind="looked-behind"></a-camera>
+
       <!-- Primitives. -->
-      <a-box position="-1 0.6 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.35 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.85 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 .1 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-box id="sphere" position="-1 0.6 -3" rotation="0 45 0" color="#28A8C8"
+             voice-command__show="command: show menu; type: attribute; attribute: visible; value: true;"
+             voice-command__hide="command: hide menu; type: attribute; attribute: visible; value: false;">
+        <a-animation begin="fade" attribute="position" from="-1 .6 -3" to="1 1.6 -5"></a-animation>
+        <a-animation begin="hide" attribute="position" from="1 1.6 -5" to="-1 .6 -3"></a-animation>
+      </a-box>
 
       <!-- Background sky. -->
-      <a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky>
+      <a-sky src="puydesancy.jpg" rotation="0 -130 0"></a-sky>
 
       <!-- Ground. -->
-      <a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle>
+      <!-- <a-circle src="#groundTexture" rotation="-90 0 0" radius="32"></a-circle> -->
 
       <!--Tracked controls. -->
       <a-entity hand-controls="hand: left"></a-entity>
       <a-entity hand-controls="hand: right"></a-entity>
+
+
     </a-scene>
   </body>
 </html>

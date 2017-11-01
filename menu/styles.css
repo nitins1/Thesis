@@ -20,6 +20,7 @@
   visibility: hidden;
 }
 
+
 ul {
   margin: 0;
   padding: 0;
@@ -44,6 +45,12 @@ p {
 
 .visible {
   visibility: visible !important;
+}
+
+@media only screen and (min-width: 500px) {
+    #menu-container {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 500px) {

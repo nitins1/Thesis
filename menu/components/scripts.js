@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-
   $("#menu-button").click(function() {
     if (menuDown == true) {
       document.querySelector("#menu-container").className += " visible";
@@ -41,18 +40,20 @@ animateUp(menu_mobile);
 
 var menuDown = true;
 console.log(menuDown);
-var sphere = document.querySelector("#sphere");
 
-function showMenu() {
-  //console.log('showMenu');
-  console.log(menuDown);
+function showMenu(camRotation) {
   var sphere = document.querySelector("#sphere");
+  var skyOverlay = document.querySelector('#sky-overlay');
+  var linkContainer = document.querySelector('#link-container');
+  // linkContainer.setAttribute('rotation', { x: 0, y: camRotation, z: 0 });
   if (menuDown) {
     document.querySelector("#menu-container").className += " visible"; //Change to VR menu
-    sphere.emit('fade'); //Change to VR menu
+    skyOverlay.emit('fade'); //Change to VR menu
+    //skyOverlay.setAttribute('material', 'opacity', '.6');
+    linkContainer.setAttribute('rotation', { x: 0, y: camRotation, z: 0 });
     menuDown = false;
     if (hmd) {
-        $("#links").attr("visible", "true");
+        $("#link-container").attr("visible", "true");
     }
 
   }
@@ -60,32 +61,30 @@ function showMenu() {
 
 function hideMenu() {
   var sphere = document.querySelector("#sphere");
+  var skyOverlay = document.querySelector('#sky-overlay');
   if (!menuDown) {
     $(document.querySelector("#menu-container")).removeClass("visible");
-    sphere.emit('hide');
+    skyOverlay.emit('hide');
     menuDown = true;
-    $("#links").attr("visible", "false");
+    $("#link-container").attr("visible", "false");
   }
 }
+
+
 AFRAME.registerComponent('camerarotation', {
   schema: {type: 'string'},
   init: function () {
-    console.log("printing this: " + this.data);
     var eventName = this.data;
     this.el.addEventListener('componentchanged', function (evt) {
-      //console.log(evt.detail.newData.x);
-      if (evt.detail.name !== 'rotation') { return; }
-      if (evt.detail.newData.x < -20) {
-        //this.emit(eventName);
-        //console.log("eventName: " + eventName);
-        showMenu();
+      var camRotation = evt.detail.newData.y
+      if (evt.detail.name !== 'rotation') {return;};
+      if (evt.detail.newData.x < -30) {
+        if ($(window).width() >= 500) {
+          showMenu(camRotation);
+        }
       } else {
         hideMenu();
       }
-      /*
-      while (evt.detail.newData.x > -20) {
-        showMenu();
-      } */
     });
-  }
+  },
 });

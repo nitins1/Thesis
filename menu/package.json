@@ -18,5 +18,8 @@
     "aframe-scene",
     "webvr",
     "vr"
-  ]
+  ],
+  "dependencies": {
+    "resonance-audio": "^1.0.0"
+  }
 }

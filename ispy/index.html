@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>menu</title>
+    <meta name="description" content="menu">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+    <!-- <script src="components/set-image.js"></script> -->
+    <script src="components/scripts.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700" rel="stylesheet">
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.min.js"></script>
+    <script src="node_modules/resonance-audio/build/resonance-audio.min.js"></script>
+    <script src="components/audio.js"></script> -->
+
+  </head>
+
+  <body>
+    <script>
+    </script>
+
+    <!-- a-scene -->
+    <a-scene>
+      <a-assets>
+        <img id="city" crossorigin="anonymous" src="//c1.staticflickr.com/3/2375/32744829021_d2d1482564_k.jpg">
+        <img id="city-thumb" crossorigin="anonymous" src="">
+        <img id="sechelt-thumb" crossorigin="anonymous" src="">
+        <img id="cubes-thumb" crossorigin="anonymous" src="">
+
+        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+
+        <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+
+        <!-- Menu Item template to be reused. -->
+        <script id="link" type="text/html">
+          <!-- Title -->
+          <a-entity class="text" position="0 .6 -.6" rotation="-30 0 0" text="align: center; alphaTest: 0; value: Hello World; width: 5;"></a-entity>
+          <!-- Options -->
+          <a-entity class="link"
+            rotation="-30 0 0"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}; opacity: .5;"
+            event-set__1="_event: mouseenter; material.opacity: 1"
+            event-set__2="_event: mouseleave; material.opacity: .5"
+            set-image="on: click; target: #image-360; src: ${src}"
+            sound="on: click; src: #click-sound"
+
+            <a-animation attribute="scale" begin="mouseenter" dur="200" to="1.2 1.2 1.2"></a-animation>
+            <a-animation attribute="scale" begin="mouseleave" dur="200" to="1 1 1"></a-animation>
+            <!-- <a-animation attribute="material.opacity" begin="mouseenter" dur="200" to="1"></a-animation>
+            <a-animation attribute="material.opacity" begin="mouseleave" dur="200" to=".5"></a-animation> -->
+            </a-entity>
+        </script>
+      </a-assets>
+
+      <!-- Sky image to be replaced -->
+      <a-sky id="image-360" src="#city" rotation="0 0 0"></a-sky>
+      <!-- Sky Overlay -->
+      <a-sky id="sky-overlay" color="#000" material="opacity: 0">
+        <a-animation attribute="material.opacity" begin="darken" dur="300" to=".6"></a-animation>
+        <a-animation attribute="material.opacity" begin="brighten" dur="300" to="0"></a-animation>
+      </a-sky>
+
+      <!-- Voice Recognition -->
+      <a-entity id="annyang" annyang-voice-recognition></a-entity>
+
+      <!-- Camera -->
+      <a-camera camerarotation="rotating">
+        <a-cursor id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: none"
+          event-set__2="_event: mouseleave; color: black"
+          cursor="fuse: true; fuseTimeout: 2000"
+          raycaster="objects: .link"></a-cursor>
+      </a-camera>
+
+      <!-- Primitives -->
+      <!--
+      <a-box animation="startEvents: fade;property: color; dir: alternate; dur: 1000; easing: easeInSine; loop: true; to: #5F5" id="sphere" position="-1 -1 -3" rotation="0 45 0" color="#28A8C8"
+             voice-command__show="command: show menu; type: attribute; attribute: visible; value: true;"
+             voice-command__hide="command: hide menu; type: attribute; attribute: visible; value: false;">
+        <a-animation begin="fade" attribute="position" from="-1 -1 -3" to="1 1.6 -5"></a-animation>
+        <a-animation begin="hide" attribute="position" from="1 1.6 -5" to="-1 -1 -3"></a-animation>
+      </a-box>
+      -->
+
+      <a-circle color="#CCC" class="link" radius="1" cursor-listener position="-1 2 -6"></a-circle>
+
+      <!-- Menu Container -->
+      <a-entity id="vr-menu-container" rotation="0 0 0" visible="false">
+        <a-entity id="links" class="links" rotation="0 0 0" layout="type: line; margin: 1.3" position="-1.3 -2 -3"
+                  voice-command="command: show menu; type: function; targetElement: #links; function: showMenu">
+          <a-entity id="cubes-menu-item" changetext="newtext: lorem" class="menu-item" template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+          <a-entity id="city-menu-item" changetext="newtext: ipsum" class="menu-item" template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
+          <a-entity id="sechelt-menu-item" changetext="newtext: dolor" class="menu-item" template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
+        </a-entity>
+        <!-- Description -->
+        <!-- <a-entity id="desc" class="text" font="kelsonsans" position="0 -2.7 -2.3" rotation="-60 0 0" text="align: center; alphaTest: 0; value: This is a description of the video that you've currently hovered over. Click to view that scene!; width: 4;"></a-entity> -->
+      </a-entity>
+
+      <!--Tracked controls. -->
+      <a-entity hand-controls="hand: left"></a-entity>
+      <a-entity hand-controls="hand: right"></a-entity>
+
+    </a-scene>
+
+    <script>
+
+    </script>
+
+  </body>
+</html>

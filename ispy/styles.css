@@ -50,10 +50,6 @@ li {
 }
 
 p {
-  font-family: 'Arvo', serif;
-  font-weight: 400;
-  margin: 0;
-  color: white;
 }
 
 .grid-container {
@@ -64,6 +60,35 @@ p {
 
 .visible {
   visibility: visible !important;
+}
+
+body {
+  position: relative;
+}
+
+#instructions {
+  position: absolute;
+  width: 300px;
+  text-align: center;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+  background: white;
+  border-radius: 10px;
+}
+
+#winner {
+  position: absolute;
+  width: 300px;
+  visibility: hidden;
+  text-align: center;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+  background: white;
+  border-radius: 10px;
 }
 
 @media only screen and (min-width: 500px) {

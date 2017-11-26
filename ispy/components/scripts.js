@@ -8,6 +8,51 @@ $( document ).ready(function() {
 
   var lookingDown = false;
 
+  var winCount = 0
+
+  function dismissInstructions() {
+    setTimeout(function() {
+      $('#instructions').fadeOut('fast');
+    }, 5000);
+  }
+
+  dismissInstructions();
+
+  function didYouWin(winCount) {
+    var winnerDialog = document.getElementById('winner');
+    if (winCount == 3) {
+      winnerDialog.className += " visible";
+      dismissWinner(winnerDialog)
+    } else {
+
+    }
+  }
+
+  var counter = 10
+
+  function change() {
+    var elem = document.getElementById("counter");
+    elem.innerHTML = "Game resetting in " + counter + ".";
+    counter--;
+    console.log(counter)
+     if (counter <= 0) {
+       $('#winner').fadeOut('fast');
+     }
+
+  }
+
+  //Dismiss confirmation
+  function dismissWinner(winnerDialog) {
+    var interval = setInterval(change, 1000);
+    setTimeout(function() {
+      clearInterval(interval);
+      location.reload();
+    }, 10000);
+
+
+  }
+
+
   // When the menu button is clicked, show the 2D menu if it's down, hide it if it's up
   $("#menu-button").click(function() {
     if (menuDown == true) {
@@ -64,7 +109,24 @@ $( document ).ready(function() {
 
   AFRAME.registerComponent('cursor-listener', {
     init: function () {
+      var itemOne = document.getElementById('itemOne');
+      var itemTwo = document.getElementById('itemTwo');
+      var itemThree = document.getElementById('itemThree');
       this.el.addEventListener('click', function (evt) {
+        console.log(this.id);
+        var thisID = (this.id);
+        var targetID = (thisID + "Thumb");
+        console.log(targetID);
+        var targetElemParent = document.getElementById(targetID);
+        var targetElem = targetElemParent.children[1];
+        targetElem.setAttribute('material', 'opacity', '.2');
+        targetElem.setAttribute('data-thumb', 'cubes-thumb');
+        console.log(targetElem.getAttribute('material'));
+        console.log(winCount);
+        winCount++;
+        console.log(winCount);
+        didYouWin(winCount);
+
         this.setAttribute('material', 'color', '#000');
         console.log('I was clicked at: ', evt.detail.intersection.point);
       });
@@ -77,10 +139,10 @@ $( document ).ready(function() {
     init: function () {
       var eventName = this.data;
       this.el.addEventListener('componentchanged', function (evt) {
-        console.log(evt.detail.name);
+        //console.log(evt.detail.name);
         var camRotation = evt.detail.newData.y
         if (evt.detail.name !== 'rotation') {return;};
-        if (evt.detail.newData.x < -20) {
+        if (evt.detail.newData.x < -60) {
           lookingDown = true;
           showMenu(camRotation);
         } else {

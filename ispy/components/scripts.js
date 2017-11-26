@@ -12,7 +12,7 @@ $( document ).ready(function() {
 
   function dismissInstructions() {
     setTimeout(function() {
-      $('#instructions').fadeOut('fast');
+      $(document.querySelector("#instruction")).remove();
     }, 5000);
   }
 
@@ -21,18 +21,20 @@ $( document ).ready(function() {
   function didYouWin(winCount) {
     var winnerDialog = document.getElementById('winner');
     if (winCount == 3) {
-      winnerDialog.className += " visible";
+      winnerDialog.setAttribute("visible", true);
       dismissWinner(winnerDialog)
     } else {
 
     }
   }
 
+  document.getElementById('winner').setAttribute("visible", false);
+
   var counter = 10
 
   function change() {
-    var elem = document.getElementById("counter");
-    elem.innerHTML = "Game resetting in " + counter + ".";
+    var winnerDialog = document.getElementById('winner');
+    winnerDialog.setAttribute('text', 'value', 'Game resetting in ' + counter + '.');
     counter--;
     console.log(counter)
      if (counter <= 0) {

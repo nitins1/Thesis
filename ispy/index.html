@@ -28,15 +28,6 @@
     <script>
     </script>
 
-    <div id="instructions" class="instructions">
-      <h1>Find all 3 items to win.</h1>
-      <p>Look down to see which items are left.</p>
-    </div>
-
-    <div id="winner" class="winner">
-      <h1>Congrats you won.</h1>
-      <p id="counter">Game resetting in 10.</p>
-    </div>
 
     <!-- a-scene -->
     <a-scene>
@@ -85,6 +76,11 @@
 
           cursor="fuse: true; fuseTimeout: 2000"
           raycaster="objects: .link"></a-cursor>
+
+        <a-entity id="instruction" position="0 .5 -2" class="text visible" text="align: center; alphaTest: 0; value: Find all 3 items to win. Look down to see what's left.; width: 2;"></a-entity>
+
+        <a-entity id="winner" position="0 .5 -2" class="" text="align: center; alphaTest: 0; value: Game resetting in 10.; width: 2;"></a-entity>
+
       </a-camera>
 
       <!-- Primitives -->

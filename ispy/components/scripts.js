@@ -20,7 +20,7 @@ $( document ).ready(function() {
 
   function didYouWin(winCount) {
     var winnerDialog = document.getElementById('winner');
-    if (winCount == 3) {
+    if (winCount == 5) {
       winnerDialog.setAttribute("visible", true);
       dismissWinner(winnerDialog)
     } else {
@@ -34,7 +34,7 @@ $( document ).ready(function() {
 
   function change() {
     var winnerDialog = document.getElementById('winner');
-    winnerDialog.setAttribute('text', 'value', 'Game resetting in ' + counter + '.');
+    winnerDialog.setAttribute('text', 'value', 'You won. Game resetting in ' + counter + '.');
     counter--;
     console.log(counter)
      if (counter <= 0) {
@@ -114,6 +114,8 @@ $( document ).ready(function() {
       var itemOne = document.getElementById('itemOne');
       var itemTwo = document.getElementById('itemTwo');
       var itemThree = document.getElementById('itemThree');
+      var itemFour = document.getElementById('itemFour');
+      var itemFive = document.getElementById('itemFive');
       this.el.addEventListener('click', function (evt) {
         console.log(this.id);
         var thisID = (this.id);
@@ -122,7 +124,7 @@ $( document ).ready(function() {
         var targetElemParent = document.getElementById(targetID);
         var targetElem = targetElemParent.children[1];
         targetElem.setAttribute('material', 'opacity', '.2');
-        targetElem.setAttribute('data-thumb', 'cubes-thumb');
+        targetElem.setAttribute('scale', '.85 .85');
         console.log(targetElem.getAttribute('material'));
         console.log(winCount);
         winCount++;

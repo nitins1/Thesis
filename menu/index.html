@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Arvo:400,700" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.min.js"></script>
-    <script src="node_modules/resonance-audio/build/resonance-audio.min.js"></script>
+    <!-- <script src="node_modules/resonance-audio/build/resonance-audio.min.js"></script> -->
     <script src="components/audio.js"></script>
 
   </head>
@@ -45,11 +45,11 @@
     <a-scene>
       <a-assets>
         <img id="city" crossorigin="anonymous" src="//c1.staticflickr.com/3/2375/32744829021_d2d1482564_k.jpg">
-        <img id="city-thumb" crossorigin="anonymous" src="">
+        <img id="city-thumb" crossorigin="anonymous" src="images/natureThumb.png">
         <img id="sechelt" crossorigin="anonymous" src="//c1.staticflickr.com/5/4543/24548632958_dd1c2a3175_k.jpg">
-        <img id="sechelt-thumb" crossorigin="anonymous" src="">
+        <img id="sechelt-thumb" crossorigin="anonymous" src="images/weddingThumb.png">
         <img id="cubes" crossorigin="anonymous" src="//c1.staticflickr.com/5/4565/38158198906_de8565370a_k.jpg">
-        <img id="cubes-thumb" crossorigin="anonymous" src="">
+        <img id="cubes-thumb" crossorigin="anonymous" src="images/churchThumb.png">
 
         <img id="grid" crossorigin="anonymous" src="images/grid-light23.jpg">
 
@@ -60,7 +60,7 @@
         <!-- Menu Item template to be reused. -->
         <script id="link" type="text/html">
           <!-- Title -->
-          <a-entity class="text" position="0 .6 -.6" rotation="-30 0 0" text="align: center; alphaTest: 0; value: Hello World; width: 5;"></a-entity>
+          <a-entity class="text" position="0 .6 -.6" rotation="-30 0 0" text="align: center; alphaTest: 0; value: ; width: 5;"></a-entity>
           <!-- Options -->
           <a-entity class="link"
             rotation="-30 0 0"
@@ -91,7 +91,7 @@
       <a-entity id="annyang" annyang-voice-recognition></a-entity>
 
       <!-- Camera -->
-      <a-camera camerarotation="rotating">
+      <a-camera id="camera" camerarotation="rotating">
         <a-cursor id="cursor"
           animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
           animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
@@ -115,12 +115,12 @@
       <a-entity id="vr-menu-container" rotation="0 0 0" visible="false">
         <a-entity id="links" class="links" rotation="0 0 0" layout="type: line; margin: 1.3" position="-1.3 -2 -3"
                   voice-command="command: show menu; type: function; targetElement: #links; function: showMenu">
-          <a-entity id="cubes-menu-item" changetext="newtext: lorem" swapsound soundToPlay="audio/farm.mp3" class="menu-item" template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
-          <a-entity id="city-menu-item" changetext="newtext: ipsum" swapsound soundToPlay="audio/car.mp3" class="menu-item" template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
-          <a-entity id="sechelt-menu-item" changetext="newtext: dolor" swapsound soundToPlay="audio/city.mp3" class="menu-item" template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
+          <a-entity id="cubes-menu-item" changetext="newtext: An old church dating back to hundreds of years." swapsound soundToPlay="audio/farm.mp3" class="menu-item" template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+          <a-entity id="city-menu-item" changetext="newtext: Look down upon a vast canyon and marvel at the rock formations." swapsound soundToPlay="audio/car.mp3" class="menu-item" template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
+          <a-entity id="sechelt-menu-item" changetext="newtext: A lavish wedding reception in a beautiful banquet hall" swapsound soundToPlay="audio/city.mp3" class="menu-item" template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
         </a-entity>
         <!-- Description -->
-        <a-entity id="desc" class="text" font="kelsonsans" position="0 -2.7 -2.3" rotation="-60 0 0" text="align: center; alphaTest: 0; value: This is a description of the video that you've currently hovered over. Click to view that scene!; width: 4;"></a-entity>
+        <a-entity id="desc" class="text" font="kelsonsans" position="0 -2.7 -2.3" rotation="-60 0 0" text="align: center; alphaTest: 0; value: Look at a new scene and press the cardboard button to view it.; width: 4;"></a-entity>
       </a-entity>
 
       <!--Tracked controls. -->

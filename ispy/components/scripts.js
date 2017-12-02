@@ -13,7 +13,7 @@ $( document ).ready(function() {
   function dismissInstructions() {
     setTimeout(function() {
       $(document.querySelector("#instruction")).remove();
-    }, 5000);
+    }, 15000);
   }
 
   dismissInstructions();

@@ -83,7 +83,7 @@ $( document ).ready(function() {
 
     var skyOverlay = document.querySelector('#sky-overlay'); // Grab Sky Overlay
     var vrMenu = document.querySelector('#vr-menu-container'); // Grab menu container
-    vrMenu.setAttribute('rotation', { x: 0, y: camRotation, z: 0 }); // Moves the entire menu as the user rotates
+    //vrMenu.setAttribute('rotation', { x: 0, y: camRotation, z: 0 }); // Moves the entire menu as the user rotates
 
     // If the menu is down
     if (menuDown) {

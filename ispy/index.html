@@ -11,7 +11,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
     <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
     <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
-    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="components/aframe-layout-component.min.js"></script>
     <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
     <!-- <script src="components/set-image.js"></script> -->
     <script src="components/scripts.js"></script>
@@ -51,7 +51,7 @@
           <a-entity class="text" position="0 .8 -.6" rotation="-70 0 0"></a-entity>
           <!-- Options -->
           <a-entity class="link"
-            rotation="-70 0 0"
+            rotation="0 0 0"
             geometry="primitive: plane; height: .3; width: .3"
             material="shader: flat; src: ${thumb}; opacity: 1;"
             sound="on: click; src: #click-sound"
@@ -104,7 +104,7 @@
 
       <!-- Menu Container -->
       <a-entity id="vr-menu-container" rotation="0 0 0" visible="false">
-        <a-entity id="links" class="links" rotation="0 0 0" layout="type: line; margin: .35" position="-.7 0 -.5"
+        <a-entity id="links" class="links" rotation="-90 0 0" layout="type: box; columns: 3; margin: .4; plane: xy;" position="-.4 0 -.1"
                   voice-command="command: show menu; type: function; targetElement: #links; function: showMenu">
           <a-entity id="itemOneThumb" changetext="newtext: lorem" class="menu-item" template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
           <a-entity id="itemTwoThumb" changetext="newtext: ipsum" class="menu-item" template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>

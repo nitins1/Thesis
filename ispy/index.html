@@ -48,11 +48,11 @@
         <!-- Menu Item template to be reused. -->
         <script id="link" type="text/html">
           <!-- Title -->
-          <a-entity class="text" position="0 2 -.6" rotation="-70 0 0"></a-entity>
+          <a-entity class="text" position="0 .8 -.6" rotation="-70 0 0"></a-entity>
           <!-- Options -->
           <a-entity class="link"
             rotation="-70 0 0"
-            geometry="primitive: plane; height: .5; width: .5"
+            geometry="primitive: plane; height: .3; width: .3"
             material="shader: flat; src: ${thumb}; opacity: 1;"
             sound="on: click; src: #click-sound"
             </a-entity>
@@ -104,7 +104,7 @@
 
       <!-- Menu Container -->
       <a-entity id="vr-menu-container" rotation="0 0 0" visible="false">
-        <a-entity id="links" class="links" rotation="0 0 0" layout="type: line; margin: .6" position="-1.2 -.5 -.5"
+        <a-entity id="links" class="links" rotation="0 0 0" layout="type: line; margin: .35" position="-.7 0 -.5"
                   voice-command="command: show menu; type: function; targetElement: #links; function: showMenu">
           <a-entity id="itemOneThumb" changetext="newtext: lorem" class="menu-item" template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
           <a-entity id="itemTwoThumb" changetext="newtext: ipsum" class="menu-item" template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
